@@ -1,65 +1,48 @@
 from tkinter import *
-from PIL import ImageTk, Image
 
-root = Tk()
-root.title("project name")
+root=Tk()
+root.geometry('600x400')
+root.title('project name')
 
-'''
-headframe=Frame(root,bg="orange",highlightbackground='white',highlightthickness=1)
-togglebutton=Button(head_frame,text="☰",bg='orange',fg='white',font=('Bold',20))
-headframe.pack(side=TOP,fill=X)
-headframe.pack_propagate(False)
-headframe.configure(height=50)
-'''
-#create menus
-my_menu=Menu(root)
-root.config(menu=my_menu)
-
-def allweb():
-    pass
-def amaz():
-    pass
-def flip():
-    pass
-def ebay():
-    pass
-
-filtermenu=Menu(my_menu)
-my_menu.add_cascade(Label="Filter",menu=filtermenu)
-filtermenu.add_command(Label="All Websites",command=allweb)
-filtermenu.add_separator()
-filtermenu.add_command(Label=" Amazon",command=amaz)
-filtermenu.add_separator()
-filtermenu.add_command(Label=" Flipkart",command=flip)
-filtermenu.add_separator()
-filtermenu.add_command(Label=" Ebay",command=ebay)
-
-#create menuitem
+optionsframe=Frame(root,bg="blue")
 
 
-# Create an icon
-# icon = PhotoImage(file="path_to_your_icon_file.png")
-# root.iconphoto(False, icon)
 
-mylabel1 = Label(root, text="filter").grid(row=6, column=0)
 
-# textbox
-e = Entry(root, width=50)
-e.grid(row=0, column=1)
+optionsframe.pack(side=LEFT)
+optionsframe.pack_propagate(False)
+optionsframe.configure(width=120,height=400)#150,1000
 
-# search button
+mainframe=Frame(root,highlightbackground='black',highlightthickness=2)
+
+mainframe.pack(side=LEFT)
+mainframe.pack_propagate(False)
+mainframe.configure(height=400,width=500)#1000,1000
+
+#Heading
+hl=Label(mainframe,text="title",font=('bold',15))
+hl.place(x=150,y=20)
+
+#labeltext
+l=Label(mainframe,text="Enter the product name:",font=('bold',10))
+l.place(x=10,y=50)
+#textbox
+e = Entry(mainframe,bd=0)
+e.place(x=260,y=58)
+
+#searchbutton
 def searchbutton():
     info = e.get()
-    label1 = Label(root, text="santhosh job")
-    label1.grid(row=1, column=0)
+    label1 = Label(mainframe, text="santhosh job")
+    label1.place(x=150, y=150)
 
-searchb = Button(root, text="search", command=searchbutton)
-searchb.grid(row=0, column=2)
+searchb = Button(mainframe, text="search",font=('Bold',10),bg='#c3c3c3', bd=5,command=searchbutton)
+searchb.place(x=150, y=100)
 
-# dropdown menu
+#droppedmenu
 def dmshow():
-    dmlabel = Label(root, text=clicked.get())
-    dmlabel.pack()
+    dmlabel = Label(optionsframe, text=clicked.get())
+    dmlabel.place()
 
 clicked = StringVar()
 options = ["Relevance",
@@ -69,46 +52,67 @@ options = ["Relevance",
            "Website Rating"]
 clicked.set(options[0])
 
+l = Label(optionsframe, text="Sort",padx=10)
+l.place(x=10,y=50)
 
+sort = OptionMenu(optionsframe,clicked, *options, command=dmshow)
+sort.place(x=10, y=80)
 
-sort = OptionMenu(root, clicked, *options)
-sort.grid(row=1, column=2)
+#checkboxes
 
-dmsort = Button(root, text="show ", command=dmshow)
-dmsort.grid(row=2, column=2)
-
-l = Label(root, text="Sort")
-l.grid(row=1, column=1)
-
-# checkboxes
+lbl=Label(optionsframe,text="Filter")
+lbl.place(x=10,y=140)
 
 wvar = StringVar()
 
-w = Checkbutton(root, text="All websites", variable=wvar, onvalue="url", offvalue="nothing")
+w = Checkbutton(optionsframe, text="All websites", variable=wvar, onvalue="url", offvalue="nothing")
 w.deselect()
-w.grid(row=7, column=0)
+w.place(x=10, y=160)
 
 avar = IntVar()
 
-a = Checkbutton(root, text="Amazon", variable=avar, onvalue="url", offvalue="nothing")
+a = Checkbutton(optionsframe, text="Amazon", variable=avar, onvalue="url", offvalue="nothing")
 a.deselect()
-a.grid(row=8, column=0)
+a.place(x=10, y=180)
 
 fvar = IntVar()
-f = Checkbutton(root, text="Flipkart", variable=fvar, onvalue="url", offvalue="nothing")
+f = Checkbutton(optionsframe, text="Flipkart", variable=fvar, onvalue="url", offvalue="nothing")
 f.deselect()
-f.grid(row=9, column=0)
+f.place(x=10, y=200)
 
-ebvar = IntVar()
-eb = Checkbutton(root, text="Ebay", variable=ebvar, onvalue="url", offvalue="nothing")
+'''ebvar = IntVar()
+eb = Checkbutton(optionsframe, text="Ebay", variable=ebvar, onvalue="url", offvalue="nothing")
 eb.deselect()
-eb.grid(row=10, column=0)
+eb.grid(row=10, column=0)'''
 
-def show():
-    wlbl = Label(root, text=wvar.get())
-    wlbl.grid(row=12, column=0)
+def wshow():
+    wlbl = Label(optionsframe, text=wvar.get())
+    wlbl.place(x=10, y=260)
 
-wbutton = Button(root, text="Show selection", command=show)
-wbutton.grid(row=11, column=0)
+
+def ashow():
+    albl = Label(optionsframe, text=avar.get())
+    albl.place(x=10,y=260)
+
+
+
+def fshow():
+    flbl = Label(optionsframe, text=fvar.get())
+    flbl.place(x=10,y=260)   
+
+
+def run_all():
+    wvar.set()
+    avar.set()
+    fvar.set()
+    wshow()
+    ashow()
+    fshow()
+    optionsframe.destroy()
+wbutton = Button(optionsframe, text="Show selection", command=run_all)
+wbutton.place(x=10, y=240)
+
+    
 
 root.mainloop()
+

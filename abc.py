@@ -1,10 +1,11 @@
 from tkinter import *
-
+from tkinter import messagebox
 root=Tk()
 root.geometry('600x400')
 root.title('project name')
 
-optionsframe=Frame(root,bg="blue")
+optionsframe=Frame(root,bg="orchid2")
+
 
 
 
@@ -18,6 +19,8 @@ mainframe=Frame(root,highlightbackground='black',highlightthickness=2)
 mainframe.pack(side=LEFT)
 mainframe.pack_propagate(False)
 mainframe.configure(height=400,width=500)#1000,1000
+
+
 
 #Heading
 hl=Label(mainframe,text="title",font=('bold',15))
@@ -38,6 +41,19 @@ def searchbutton():
 
 searchb = Button(mainframe, text="search",font=('Bold',10),bg='#c3c3c3', bd=5,command=searchbutton)
 searchb.place(x=150, y=100)
+
+
+#aisuggestion
+def aisuggest():
+    messagebox.showinfo('AI suggestion','helloworld')
+aibutton=Button(optionsframe,text="AI suggestion",command=aisuggest)
+aibutton.place(x=10,y=300)
+#specificationsbutton
+def specifications():
+    slabel=Label(mainframe,text="specifications")
+    slabel.place(x=280, y=150)
+specib = Button(mainframe, text="specifications",font=('Bold',10),bg='#c3c3c3', bd=5,command=specifications)
+specib.place(x=250, y=100)
 
 #droppedmenu
 def dmshow():
